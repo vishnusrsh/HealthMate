@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Mental Health Support</h1>
+            <p class="text-xl text-gray-600">Your AI companion for mental wellness and emotional support</p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-8">
+                <!-- Chat Interface -->
+                <div class="space-y-6">
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" class="space-y-4 h-[400px] overflow-y-auto p-4 bg-gray-50 rounded-lg">
+                        <!-- Welcome Message -->
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-robot text-white"></i>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm max-w-[80%]">
+                                <p class="text-gray-800">
+                                    Hello! I'm here to support your mental well-being. How are you feeling today?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Form -->
+                    <form id="chatForm" class="flex space-x-4">
+                        <div class="flex-grow relative">
+                            <input type="text" id="userMessage" name="message" required
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                                placeholder="Type your message...">
+                        </div>
+                        <button type="submit"
+                            class="btn-primary text-white px-6 py-3 rounded-lg font-medium flex items-center space-x-2">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources Card -->
+        <div class="mt-12 bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Mental Health Resources</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Self-Care Tips -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Self-Care Tips</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-spa text-primary mt-1"></i>
+                                <p class="text-gray-600">Practice mindfulness and meditation daily</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-bed text-primary mt-1"></i>
+                                <p class="text-gray-600">Maintain a regular sleep schedule</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-running text-primary mt-1"></i>
+                                <p class="text-gray-600">Stay physically active</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Contacts -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Emergency Contacts</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-phone text-red-500 mt-1"></i>
+                                <p class="text-gray-600">National Crisis Hotline: 988</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-globe text-red-500 mt-1"></i>
+                                <p class="text-gray-600">SAMHSA Helpline: 1-800-662-4357</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-heart text-red-500 mt-1"></i>
+                                <p class="text-gray-600">Crisis Text Line: Text HOME to 741741</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const chatMessages = document.getElementById('chatMessages');
+    const chatForm = document.getElementById('chatForm');
+    const userMessageInput = document.getElementById('userMessage');
+
+    function addMessage(message, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'flex items-start space-x-3';
+        
+        if (isUser) {
+            messageDiv.innerHTML = `
+                <div class="flex-grow"></div>
+                <div class="bg-primary text-white p-4 rounded-lg shadow-sm max-w-[80%]">
+                    <p>${message}</p>
+                </div>
+                <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-user text-gray-600"></i>
+                </div>
+            `;
+        } else {
+            messageDiv.innerHTML = `
+                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-robot text-white"></i>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm max-w-[80%]">
+                    <p class="text-gray-800">${message}</p>
+                </div>
+            `;
+        }
+        
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const message = userMessageInput.value.trim();
+        if (!message) return;
+        
+        // Add user message to chat
+        addMessage(message, true);
+        userMessageInput.value = '';
+        
+        try {
+            const response = await fetch('/mental_health_chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message })
+            });
+            
+            const data = await response.json();
+            
+            // Add AI response to chat
+            addMessage(data.response);
+            
+        } catch (error) {
+            console.error('Error:', error);
+            addMessage('I apologize, but I\'m having trouble processing your request right now. Please try again later.');
+        }
+    });
+</script>
+{% endblock %} 

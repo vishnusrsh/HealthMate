@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block title %}HealthMate AI - Your AI Health Assistant{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-[500px] flex items-center">
+    <!-- Background Image with Gradient Overlay -->
+    <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+             alt="Healthcare Background" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/90 via-blue-800/85 to-blue-900/90"></div>
+    </div>
+    
+    <!-- Content -->
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                Your Personal Health Assistant
+            </h1>
+            <p class="text-lg md:text-xl text-blue-50 mb-6 leading-relaxed">
+                Get instant health insights, track your wellness, and receive personalized recommendations powered by AI.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="/bmi" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-6 py-3 text-base font-semibold text-white rounded-lg flex items-center gap-2 transition-all duration-300 hover:shadow-lg">
+                    Get Started
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+                <a href="#features" class="px-6 py-3 text-base font-semibold text-white border-2 border-white/30 rounded-lg hover:bg-white/10 transition-all duration-300">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-4">Our Health Features</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Comprehensive health tools designed to support your wellbeing journey.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- BMI Calculator Card -->
+            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:border-blue-200 transition-colors duration-300">
+                <div class="p-6">
+                    <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-weight text-blue-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">BMI Calculator</h3>
+                    <p class="text-gray-600 mb-4">
+                        Calculate your Body Mass Index and receive personalized health recommendations.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-blue-500 mr-2"></i>
+                            <span>Instant BMI calculation</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-blue-500 mr-2"></i>
+                            <span>Personalized recommendations</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-blue-500 mr-2"></i>
+                            <span>Health tracking insights</span>
+                        </div>
+                    </div>
+                    <a href="/bmi" class="inline-flex items-center justify-center w-full bg-blue-500 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-600 transition-colors duration-300">
+                        Calculate Now
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Symptom Checker Card -->
+            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:border-green-200 transition-colors duration-300">
+                <div class="p-6">
+                    <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-heartbeat text-green-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Symptom Checker</h3>
+                    <p class="text-gray-600 mb-4">
+                        Get instant insights about your symptoms and potential health conditions.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>AI-powered analysis</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Detailed health insights</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Professional recommendations</span>
+                        </div>
+                    </div>
+                    <a href="/symptom" class="inline-flex items-center justify-center w-full bg-green-500 text-white px-4 py-2 rounded-md font-medium hover:bg-green-600 transition-colors duration-300">
+                        Check Symptoms
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pill Reminder Card -->
+            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:border-purple-200 transition-colors duration-300">
+                <div class="p-6">
+                    <div class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-bell text-purple-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Pill Reminder</h3>
+                    <p class="text-gray-600 mb-4">
+                        Never miss your medication with our smart reminder system and stay healthy! 
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Smart notifications</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Custom schedules</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Medication tracking</span>
+                        </div>
+                    </div>
+                    <a href="/pill-reminder" class="inline-flex items-center justify-center w-full bg-purple-500 text-white px-4 py-2 rounded-md font-medium hover:bg-purple-600 transition-colors duration-300">
+                        Set Reminders
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Health Tips Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Daily Health Tips</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Get daily insights and tips to improve your health and wellbeing.
+            </p>
+                    </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Tip 1 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="relative h-48">
+                    <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                         alt="Healthy Eating" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Healthy Eating</h3>
+                    <p class="text-gray-600">
+                        Focus on a balanced diet rich in fruits, vegetables, whole grains, and lean proteins.
+                        Remember to stay hydrated and limit processed foods.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tip 2 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="relative h-48">
+                    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                         alt="Regular Exercise" 
+                         class="w-full h-full object-cover">
+                    </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Regular Exercise</h3>
+                    <p class="text-gray-600">
+                        Aim for at least 30 minutes of moderate exercise daily. Mix cardio, strength training,
+                        and flexibility exercises for optimal health.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tip 3 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="relative h-48">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                         alt="Mental Wellness" 
+                         class="w-full h-full object-cover">
+                    </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Mental Wellness</h3>
+                    <p class="text-gray-600">
+                        Practice mindfulness and stress management techniques. Get adequate sleep and
+                        maintain a healthy work-life balance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-white mb-8">Start Your Health Journey Today</h2>
+        <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Take control of your health with our comprehensive suite of AI-powered tools and personalized insights.
+        </p>
+        <a href="/symptom" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all">
+            Get Started Now
+        </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-gradient {
+        background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
+    }
+    
+    .card-hover {
+        transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+        transform: translateY(-5px);
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+    }
+</style>
+{% endblock %}

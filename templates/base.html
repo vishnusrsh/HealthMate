@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}HealthMate AI - Your AI Health Assistant{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E88E5',
+                        secondary: '#64B5F6',
+                        accent: '#E3F2FD',
+                        dark: '#1565C0',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #1E88E5;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-2">
+                        <i class="fas fa-heartbeat text-primary text-2xl"></i>
+                        <span class="text-xl font-semibold text-gray-800">HealthMate AI</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="nav-link text-gray-600 hover:text-primary">Home</a>
+                    <a href="/symptom" class="nav-link text-gray-600 hover:text-primary">Symptom Checker</a>
+                    <a href="/bmi" class="nav-link text-gray-600 hover:text-primary">BMI Calculator</a>
+                    <a href="/pill-reminder" class="nav-link text-gray-600 hover:text-primary">Pill Reminder</a>
+                    <a href="/depression-support" class="nav-link text-gray-600 hover:text-primary">Depression Support</a>
+                    <a href="/mental" class="nav-link text-gray-600 hover:text-primary">Mental Health</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button type="button" class="text-gray-600 hover:text-primary" id="mobile-menu-button">
+                        <i class="fas fa-bars text-xl"></i>
+            </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="/" class="block px-3 py-2 text-gray-600 hover:text-primary">Home</a>
+                <a href="/symptom" class="block px-3 py-2 text-gray-600 hover:text-primary">Symptom Checker</a>
+                <a href="/bmi" class="block px-3 py-2 text-gray-600 hover:text-primary">BMI Calculator</a>
+                <a href="/pill-reminder" class="block px-3 py-2 text-gray-600 hover:text-primary">Pill Reminder</a>
+                <a href="/depression-support" class="block px-3 py-2 text-gray-600 hover:text-primary">Depression Support</a>
+                <a href="/mental" class="block px-3 py-2 text-gray-600 hover:text-primary">Mental Health</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-16">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-12">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">HealthMate AI</h3>
+                    <p class="text-gray-600">Your AI-powered health assistant for a better lifestyle.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-600 hover:text-primary">Home</a></li>
+                        <li><a href="/bmi" class="text-gray-600 hover:text-primary">BMI Calculator</a></li>
+                        <li><a href="/symptom" class="text-gray-600 hover:text-primary">Symptom Checker</a></li>
+                        <li><a href="/pill-reminder" class="text-gray-600 hover:text-primary">Pill Reminder</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-envelope mr-2"></i>
+                            support@healthmateai.com
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-phone mr-2"></i>
+                            +1 (555) 123-4567
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t text-center text-gray-600">
+                <p>&copy; 2024 HealthMate AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Daily Health Tip{% endblock %}
+
+{% block content %}
+<div class="card p-4 shadow-lg">
+    <h2>Get a Daily Health Tip</h2>
+    <form method="POST">
+        <label>Health Category (optional):</label>
+        <input type="text" name="user_input" class="form-control" placeholder="e.g., nutrition, exercise">
+        <button type="submit" class="btn btn-primary mt-2">Get Tip</button>
+    </form>
+    {% if response %}
+    <div class="mt-4 alert alert-success">
+        {{ response }}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}BMI Calculator - HealthMate AI{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">BMI Calculator</h1>
+            <p class="text-xl text-gray-600">Calculate your Body Mass Index and get personalized health insights</p>
+    </div>
+
+        <!-- Calculator Card -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-8">
+                <form id="bmiForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Age Input -->
+                        <div>
+                            <label for="age" class="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                            <div class="relative">
+                                <input type="number" id="age" name="age" required min="2" max="120"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                                    placeholder="Enter your age">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i class="fas fa-user text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gender Selection -->
+                        <div>
+                            <label for="gender" class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                            <select id="gender" name="gender" required
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Height Input -->
+                        <div>
+                            <label for="height" class="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
+                            <div class="relative">
+                                <input type="number" id="height" name="height" required min="50" max="250"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                                    placeholder="Enter your height">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i class="fas fa-ruler-vertical text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+
+                        <!-- Weight Input -->
+                        <div>
+                            <label for="weight" class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
+                            <div class="relative">
+                                <input type="number" id="weight" name="weight" required min="20" max="300"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                                    placeholder="Enter your weight">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i class="fas fa-weight text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full btn-primary text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2">
+                        <i class="fas fa-calculator"></i>
+                        <span>Calculate BMI</span>
+                    </button>
+                </form>
+
+                <!-- Results Section -->
+                <div id="bmiResult" class="mt-8 hidden">
+                    <div class="bg-blue-50 rounded-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">Your BMI Result</h3>
+                            <span id="bmiValue" class="text-2xl font-bold text-primary"></span>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-3 h-3 rounded-full bg-primary"></div>
+                                <p id="bmiCategory" class="text-gray-700"></p>
+                    </div>
+                            <p id="bmiDescription" class="text-gray-600"></p>
+                            <div id="bmiRecommendations" class="mt-4 p-4 bg-white rounded-lg">
+                                <h4 class="font-semibold text-gray-800 mb-2">Personalized Recommendations</h4>
+                                <ul id="recommendationsList" class="space-y-2 text-gray-600">
+                                    <!-- Recommendations will be populated here -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+        <!-- BMI Information Card -->
+        <div class="mt-12 bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Understanding BMI</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-800">BMI Categories</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center space-x-3">
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                                <span class="text-gray-600">Under 18.5: Underweight</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                                <span class="text-gray-600">18.5 - 24.9: Normal weight</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                <span class="text-gray-600">25 - 29.9: Overweight</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                                <span class="text-gray-600">30 and above: Obese</span>
+                            </li>
+                            </ul>
+                        </div>
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Health Implications</h3>
+                        <p class="text-gray-600">
+                            BMI is a useful measure of overweight and obesity. It is calculated from your height and weight.
+                            BMI is an estimate of body fat and a good gauge of your risk for diseases that can occur with
+                            more body fat.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('bmiForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const age = parseInt(document.getElementById('age').value);
+        const gender = document.getElementById('gender').value;
+        const height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to m
+        const weight = parseFloat(document.getElementById('weight').value);
+        
+        if (height && weight && age && gender) {
+            const bmi = weight / (height * height);
+            const result = document.getElementById('bmiResult');
+            const bmiValue = document.getElementById('bmiValue');
+            const bmiCategory = document.getElementById('bmiCategory');
+            const bmiDescription = document.getElementById('bmiDescription');
+            const recommendationsList = document.getElementById('recommendationsList');
+            
+            bmiValue.textContent = bmi.toFixed(1);
+            
+            let category, description, recommendations = [];
+            
+            if (bmi < 18.5) {
+                category = "Underweight";
+                description = "Your BMI indicates that you are underweight. This may affect your overall health and energy levels.";
+                recommendations = [
+                    "Consult with a healthcare provider for a proper diet plan",
+                    "Focus on nutrient-dense foods to gain weight healthily",
+                    "Consider working with a nutritionist to develop a meal plan"
+                ];
+            } else if (bmi < 25) {
+                category = "Normal weight";
+                description = "Your BMI is within the healthy range. Maintain your current lifestyle and regular exercise.";
+                recommendations = [
+                    "Continue with your current healthy habits",
+                    "Stay physically active with regular exercise",
+                    "Maintain a balanced diet"
+                ];
+            } else if (bmi < 30) {
+                category = "Overweight";
+                description = "Your BMI indicates that you are overweight. Consider making lifestyle changes to achieve a healthier weight.";
+                recommendations = [
+                    "Increase physical activity levels",
+                    "Focus on portion control and healthy eating",
+                    "Consider consulting with a healthcare provider for a weight management plan"
+                ];
+            } else {
+                category = "Obese";
+                description = "Your BMI indicates obesity. It's recommended to consult with a healthcare provider for a comprehensive weight management plan.";
+                recommendations = [
+                    "Seek professional medical advice",
+                    "Start a structured weight management program",
+                    "Focus on lifestyle changes including diet and exercise"
+                ];
+            }
+            
+            // Add age and gender specific recommendations
+            if (age < 18) {
+                recommendations.push("Consult with a pediatrician for age-appropriate guidance");
+            } else if (age > 65) {
+                recommendations.push("Consider consulting with a geriatric specialist");
+            }
+            
+            if (gender === 'female') {
+                recommendations.push("Consider consulting with a women's health specialist");
+            }
+            
+            bmiCategory.textContent = category;
+            bmiDescription.textContent = description;
+            
+            // Update recommendations
+            recommendationsList.innerHTML = recommendations.map(rec => 
+                `<li class="flex items-start space-x-2">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <span>${rec}</span>
+                </li>`
+            ).join('');
+            
+            result.classList.remove('hidden');
+            result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Pill Reminder</h1>
+            <p class="text-xl text-gray-600">Never miss your medication with our smart reminder system</p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-8">
+                <form id="reminderForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Medication Name -->
+                        <div>
+                            <label for="medication" class="block text-sm font-medium text-gray-700 mb-2">Medication Name</label>
+                            <div class="relative">
+                                <input type="text" id="medication" name="medication" required
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                                    placeholder="Enter medication name">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i class="fas fa-pills text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dosage -->
+                        <div>
+                            <label for="dosage" class="block text-sm font-medium text-gray-700 mb-2">Dosage</label>
+                            <div class="relative">
+                                <input type="text" id="dosage" name="dosage" required
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                                    placeholder="e.g., 1 tablet">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i class="fas fa-balance-scale text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Time -->
+                        <div>
+                            <label for="time" class="block text-sm font-medium text-gray-700 mb-2">Time</label>
+                            <div class="relative">
+                                <input type="time" id="time" name="time" required
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i class="fas fa-clock text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Frequency -->
+                        <div>
+                            <label for="frequency" class="block text-sm font-medium text-gray-700 mb-2">Frequency</label>
+                            <select id="frequency" name="frequency" required
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
+                                <option value="">Select frequency</option>
+                                <option value="daily">Daily</option>
+                                <option value="twice">Twice a day</option>
+                                <option value="thrice">Three times a day</option>
+                                <option value="weekly">Weekly</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
+                        <textarea id="notes" name="notes" rows="3"
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                            placeholder="Any special instructions or notes..."></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full btn-primary text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2">
+                        <i class="fas fa-bell"></i>
+                        <span>Set Reminder</span>
+                    </button>
+                </form>
+
+                <!-- Reminders List -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Your Reminders</h3>
+                    <div id="remindersList" class="space-y-4">
+                        <!-- Reminders will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Information Card -->
+        <div class="mt-12 bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Tips for Medication Management</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                            <p class="text-gray-600">Take medications at the same time each day</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                            <p class="text-gray-600">Keep a list of all your medications</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                            <p class="text-gray-600">Store medications in a cool, dry place</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-exclamation-circle text-yellow-500 mt-1"></i>
+                            <p class="text-gray-600">Never skip doses without consulting your doctor</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-exclamation-circle text-yellow-500 mt-1"></i>
+                            <p class="text-gray-600">Keep medications out of reach of children</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-exclamation-circle text-yellow-500 mt-1"></i>
+                            <p class="text-gray-600">Check expiration dates regularly</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Request notification permission
+    if ('Notification' in window) {
+        Notification.requestPermission();
+    }
+
+    // Load existing reminders
+    function loadReminders() {
+        const reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
+        const remindersList = document.getElementById('remindersList');
+        remindersList.innerHTML = '';
+
+        reminders.forEach((reminder, index) => {
+            const reminderElement = document.createElement('div');
+            reminderElement.className = 'bg-blue-50 rounded-lg p-4 flex items-center justify-between';
+            reminderElement.innerHTML = `
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                        <i class="fas fa-pills text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800">${reminder.medication}</h4>
+                        <p class="text-gray-600">${reminder.dosage} - ${reminder.frequency}</p>
+                        <p class="text-sm text-gray-500">Time: ${reminder.time}</p>
+                    </div>
+                </div>
+                <button onclick="deleteReminder(${index})" class="text-red-500 hover:text-red-700">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            remindersList.appendChild(reminderElement);
+        });
+    }
+
+    // Delete reminder
+    function deleteReminder(index) {
+        const reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
+        reminders.splice(index, 1);
+        localStorage.setItem('reminders', JSON.stringify(reminders));
+        loadReminders();
+    }
+
+    // Add new reminder
+    document.getElementById('reminderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const reminder = {
+            medication: document.getElementById('medication').value,
+            dosage: document.getElementById('dosage').value,
+            time: document.getElementById('time').value,
+            frequency: document.getElementById('frequency').value,
+            notes: document.getElementById('notes').value
+        };
+        
+        const reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
+        reminders.push(reminder);
+        localStorage.setItem('reminders', JSON.stringify(reminders));
+        
+        // Schedule notification
+        if ('Notification' in window && Notification.permission === 'granted') {
+            const [hours, minutes] = reminder.time.split(':');
+            const now = new Date();
+            const scheduledTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+            
+            if (scheduledTime > now) {
+                setTimeout(() => {
+                    new Notification('Medication Reminder', {
+                        body: `Time to take ${reminder.medication} (${reminder.dosage})`,
+                        icon: '/static/images/pill-icon.png'
+                    });
+                }, scheduledTime - now);
+            }
+        }
+        
+        loadReminders();
+        this.reset();
+    });
+
+    // Load reminders on page load
+    loadReminders();
+</script>
+{% endblock %} 

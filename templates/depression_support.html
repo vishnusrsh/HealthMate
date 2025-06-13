@@ -1,0 +1,412 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section with Uplifting Design -->
+<section class="min-h-[500px] relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-400 to-pink-400 opacity-90"></div>
+    <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center mix-blend-overlay"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+        <div class="text-center text-white space-y-6">
+            <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+                You're Not Alone in This Journey
+            </h1>
+            <p class="text-xl max-w-2xl mx-auto">
+                Together, we can find light in the darkness. Let's take small steps towards healing and happiness.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button onclick="startMoodLifter()" class="bg-white text-primary px-8 py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                    <i class="fas fa-sun mr-2"></i>Start Mood Lifter
+                </button>
+                <a href="#counseling" class="bg-primary/80 text-white px-8 py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                    <i class="fas fa-comments mr-2"></i>Talk to Counselor
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Daily Affirmations Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Daily Affirmations</h2>
+            <p class="text-gray-600">Positive thoughts to brighten your day</p>
+        </div>
+        <div id="affirmationCard" class="max-w-2xl mx-auto bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl p-8 text-white text-center transform transition-all duration-500 hover:scale-105 cursor-pointer" onclick="changeAffirmation()">
+            <p id="affirmationText" class="text-2xl font-medium"></p>
+        </div>
+    </div>
+</section>
+
+<!-- Mood Lifter Activities -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Mood Lifter Activities</h2>
+            <p class="text-gray-600">Simple activities to help lift your spirits</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Breathing Exercise -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-wind text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 text-center">Breathing Exercise</h3>
+                    <p class="text-gray-600 text-center mb-4">Take a moment to breathe yourself</p>
+                    <div id="breathingExercise" class="hidden">
+                        <div class="relative w-32 h-32 mx-auto mb-4">
+                            <div id="breathingCircle" class="absolute inset-0 bg-blue-500 rounded-full transform scale-0 transition-transform duration-4"></div>
+                            <div class="absolute inset-0 flex items-center justify-center text-white font-medium">
+                                <span id="breathingText">Breathe In</span>
+                            </div>
+                        </div>
+                        <div class="text-center text-gray-600 mb-4">
+                            <span id="breathingTimer">4</span> seconds
+                        </div>
+                    </div>
+                    <button onclick="toggleBreathingExercise()" class="w-full bg-blue-50 text-primary px-4 py-2 rounded-lg font-medium hover:bg-blue-100 transition-colors">
+                        Start Exercise
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gratitude Journal -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-book text-purple-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 text-center">Gratitude Journal</h3>
+                    <p class="text-gray-600 text-center mb-4">Write down things you're grateful for</p>
+                    <div id="journalEntry" class="hidden">
+                        <textarea id="journalText" class="w-full h-32 p-3 border border-gray-200 rounded-lg mb-4" placeholder="What are you grateful for today?"></textarea>
+                        <button onclick="saveJournalEntry()" class="w-full bg-purple-50 text-purple-500 px-4 py-2 rounded-lg font-medium hover:bg-purple-100 transition-colors">
+                            Save Entry
+                        </button>
+                    </div>
+                    <button onclick="toggleJournal()" class="w-full bg-purple-50 text-purple-500 px-4 py-2 rounded-lg font-medium hover:bg-purple-100 transition-colors">
+                        Start Journaling
+                    </button>
+                </div>
+            </div>
+
+            <!-- Positive Music -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-music text-pink-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 text-center">Uplifting Music</h3>
+                    <p class="text-gray-600 text-center mb-4">Listen to mood-lifting music</p>
+                    <div id="musicPlayer" class="hidden">
+                        <div class="mb-4">
+                            <select id="songSelect" class="w-full p-2 border border-gray-200 rounded-lg">
+                                <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Peaceful Morning</option>
+                                <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Gentle Breeze</option>
+                                <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Calm Waters</option>
+                                <optgroup label="Malayalam Music">
+                                    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">Mizhiyil Ninnum (Malayalam)</option>
+                                    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">Oru Naal (Malayalam)</option>
+                                    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3">Kannadi Koodum (Malayalam)</option>
+                                    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3">Cherathukal - Kumbalangi Nights (Malayalam)</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <audio id="audioPlayer" controls class="w-full mb-4">
+                            <source src="" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <button onclick="toggleMusicPlayer()" class="w-full bg-pink-50 text-pink-500 px-4 py-2 rounded-lg font-medium hover:bg-pink-100 transition-colors">
+                        Play Music
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Counseling Section -->
+<section id="counseling" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Professional Counseling</h2>
+            <p class="text-gray-600">Connect with licensed counselors for support and guidance</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- AI Chat Support -->
+            <div class="bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl p-8 text-white">
+                <h3 class="text-2xl font-semibold mb-4">AI Chat Support</h3>
+                <p class="mb-6">Talk to our AI counselor for immediate support and guidance</p>
+                <button onclick="startAIChat()" class="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+                    Start Chat
+                </button>
+            </div>
+
+            <!-- Professional Counselors -->
+            <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-8 text-white">
+                <h3 class="text-2xl font-semibold mb-4">Professional Counselors</h3>
+                <p class="mb-6">Connect with licensed mental health professionals</p>
+                <button onclick="connectWithCounselor()" class="bg-white text-purple-500 px-6 py-3 rounded-lg font-medium hover:bg-purple-50 transition-colors">
+                    Find a Counselor
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Emergency Support -->
+<section class="py-16 bg-red-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">Need Immediate Support?</h2>
+        <p class="text-gray-600 mb-8">If you're experiencing a crisis, help is available 24/7</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl p-6 shadow-lg">
+                <i class="fas fa-phone text-red-500 text-3xl mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Crisis Hotline</h3>
+                <p class="text-gray-600 mb-4">988</p>
+                <a href="tel:988" class="text-red-500 font-medium hover:text-red-600">Call Now</a>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-lg">
+                <i class="fas fa-comments text-red-500 text-3xl mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Crisis Text Line</h3>
+                <p class="text-gray-600 mb-4">Text HOME to 741741</p>
+                <a href="sms:741741" class="text-red-500 font-medium hover:text-red-600">Text Now</a>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-lg">
+                <i class="fas fa-globe text-red-500 text-3xl mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">SAMHSA Helpline</h3>
+                <p class="text-gray-600 mb-4">1-800-662-4357</p>
+                <a href="tel:18006624357" class="text-red-500 font-medium hover:text-red-600">Call Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Affirmations
+    const affirmations = [
+        "You are stronger than you think",
+        "Every day is a new beginning",
+        "You are worthy of love and happiness",
+        "Your feelings are valid and important",
+        "You are making progress, even if it's not visible",
+        "You have the power to create positive change",
+        "You are not alone in this journey",
+        "Your story is still being written",
+        "You are capable of amazing things",
+        "Today is full of possibilities"
+    ];
+
+    function changeAffirmation() {
+        const affirmationText = document.getElementById('affirmationText');
+        const randomIndex = Math.floor(Math.random() * affirmations.length);
+        affirmationText.textContent = affirmations[randomIndex];
+        
+        // Add animation
+        affirmationText.style.opacity = '0';
+        setTimeout(() => {
+            affirmationText.style.opacity = '1';
+        }, 300);
+    }
+
+    // Initialize first affirmation
+    changeAffirmation();
+
+    // Breathing Exercise
+    let breathingInterval;
+    let isBreathing = false;
+
+    function toggleBreathingExercise() {
+        const exercise = document.getElementById('breathingExercise');
+        const button = event.target;
+        
+        if (exercise.classList.contains('hidden')) {
+            exercise.classList.remove('hidden');
+            button.textContent = 'Stop Exercise';
+            startBreathingExercise();
+        } else {
+            exercise.classList.add('hidden');
+            button.textContent = 'Start Exercise';
+            stopBreathingExercise();
+        }
+    }
+
+    function startBreathingExercise() {
+        isBreathing = true;
+        let phase = 'in';
+        let timeLeft = 4;
+        
+        breathingInterval = setInterval(() => {
+            const circle = document.getElementById('breathingCircle');
+            const text = document.getElementById('breathingText');
+            const timer = document.getElementById('breathingTimer');
+            
+            if (phase === 'in') {
+                circle.style.transform = 'scale(1)';
+                text.textContent = 'Breathe In';
+                timeLeft--;
+                timer.textContent = timeLeft;
+                
+                if (timeLeft === 0) {
+                    phase = 'hold';
+                    timeLeft = 4;
+                }
+            } else if (phase === 'hold') {
+                text.textContent = 'Hold';
+                timeLeft--;
+                timer.textContent = timeLeft;
+                
+                if (timeLeft === 0) {
+                    phase = 'out';
+                    timeLeft = 4;
+                }
+            } else {
+                circle.style.transform = 'scale(0)';
+                text.textContent = 'Breathe Out';
+                timeLeft--;
+                timer.textContent = timeLeft;
+                
+                if (timeLeft === 0) {
+                    phase = 'in';
+                    timeLeft = 4;
+                }
+            }
+        }, 1000);
+    }
+
+    function stopBreathingExercise() {
+        clearInterval(breathingInterval);
+        isBreathing = false;
+        const circle = document.getElementById('breathingCircle');
+        const text = document.getElementById('breathingText');
+        const timer = document.getElementById('breathingTimer');
+        
+        circle.style.transform = 'scale(0)';
+        text.textContent = 'Breathe In';
+        timer.textContent = '4';
+    }
+
+    // Journal
+    function toggleJournal() {
+        const journal = document.getElementById('journalEntry');
+        const button = event.target;
+        
+        if (journal.classList.contains('hidden')) {
+            journal.classList.remove('hidden');
+            button.textContent = 'Close Journal';
+        } else {
+            journal.classList.add('hidden');
+            button.textContent = 'Start Journaling';
+        }
+    }
+
+    function saveJournalEntry() {
+        const entry = document.getElementById('journalText').value;
+        if (entry.trim()) {
+            // Save to localStorage
+            const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+            entries.push({
+                text: entry,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('journalEntries', JSON.stringify(entries));
+            
+            // Clear and hide
+            document.getElementById('journalText').value = '';
+            document.getElementById('journalEntry').classList.add('hidden');
+            event.target.parentElement.previousElementSibling.textContent = 'Start Journaling';
+            
+            // Show success message
+            alert('Journal entry saved successfully!');
+        }
+    }
+
+    // Music Player
+    function toggleMusicPlayer() {
+        const player = document.getElementById('musicPlayer');
+        const button = event.target;
+        
+        if (player.classList.contains('hidden')) {
+            player.classList.remove('hidden');
+            button.textContent = 'Hide Player';
+            updateAudioSource();
+        } else {
+            player.classList.add('hidden');
+            button.textContent = 'Play Music';
+            document.getElementById('audioPlayer').pause();
+        }
+    }
+
+    function updateAudioSource() {
+        const select = document.getElementById('songSelect');
+        const player = document.getElementById('audioPlayer');
+        player.src = select.value;
+        player.load();
+    }
+
+    // Event Listeners
+    document.getElementById('songSelect').addEventListener('change', updateAudioSource);
+
+    // AI Chat
+    function startAIChat() {
+        window.location.href = '/mental';
+    }
+
+    // Connect with Counselor
+    function connectWithCounselor() {
+        // Implement counselor connection
+        alert('Connecting you with a counselor...');
+    }
+
+    // Mood Lifter
+    function startMoodLifter() {
+        // Start a sequence of activities
+        const activities = [
+            () => {
+                alert('Let\'s start with a breathing exercise...');
+                document.querySelector('[onclick="toggleBreathingExercise()"]').click();
+            },
+            () => {
+                setTimeout(() => {
+                    alert('Now, let\'s write in your gratitude journal...');
+                    document.querySelector('[onclick="toggleJournal()"]').click();
+                }, 5000);
+            },
+            () => {
+                setTimeout(() => {
+                    alert('Finally, let\'s listen to some uplifting music...');
+                    document.querySelector('[onclick="toggleMusicPlayer()"]').click();
+                }, 10000);
+            }
+        ];
+
+        activities.forEach((activity, index) => {
+            setTimeout(activity, index * 5000);
+        });
+    }
+</script>
+
+<style>
+    #affirmationCard {
+        transition: all 0.5s ease;
+    }
+
+    #affirmationText {
+        transition: opacity 0.3s ease;
+    }
+
+    .hover\:scale-105:hover {
+        transform: scale(1.05);
+    }
+
+    #breathingCircle {
+        transition: transform 4s ease-in-out;
+    }
+</style>
+{% endblock %} 
